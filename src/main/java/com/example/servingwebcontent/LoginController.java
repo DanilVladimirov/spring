@@ -24,19 +24,22 @@ public class LoginController {
             @RequestParam String password,
             Model model
     ) {
-
+        String page = "login";
         UserModel user = userRepo.findByusername(username);
         if (user == null) {
             model.addAttribute("errorMsg", "user not found");
+            model.addAttribute("isError", true);
             model.addAttribute("url", "login");
-            return "failpage";
+            return page;
         }
         if (password.equals(user.getPassword())) {
-            return "redirect:/";
+            model.addAttribute("hello", "hello " + username + "!");
+            return "success";
         } else {
             model.addAttribute("errorMsg", "username or password invalid");
+            model.addAttribute("isError", true);
             model.addAttribute("url", "login");
-            return "failpage";
+            return page;
         }
     }
 }

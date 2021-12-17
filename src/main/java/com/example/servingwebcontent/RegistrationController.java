@@ -28,16 +28,19 @@ public class RegistrationController {
 			@RequestParam String password2,
 			Model model
 	) {
+		String page = "registration";
 		UserModel user = userRepo.findByusername(username);
 		if (user != null) {
+			model.addAttribute("isError", true);
 			model.addAttribute("errorMsg", "user with this nickname exists");
 			model.addAttribute("url", "registration");
-			return "failpage";
+			return page;
 		}
 		if (!password1.equals(password2)) {
+			model.addAttribute("isError", true);
 			model.addAttribute("errorMsg", "password1 and password2 dont match");
 			model.addAttribute("url", "registration");
-			return "failpage";
+			return page;
 		}
 		UserModel new_user = new UserModel(
 				username,
@@ -47,6 +50,6 @@ public class RegistrationController {
 				password1
 		);
 		userRepo.save(new_user);
-		return "redirect:/";
+		return "redirect:/login";
 	}
 }

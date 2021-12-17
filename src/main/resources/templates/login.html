@@ -13,6 +13,9 @@
 </head>
 <body>
 <div style="margin: 100px auto; width: 30%;">
+    <!--/*@thymesVar id="isError" type="bool"*/-->
+    <div class="alert alert-danger" role="alert" th:if="${isError} == true" th:text="${errorMsg}"></div>
+
     <form id="idRegisterForm" method="post">
         <div class="input-group mb-3">
             <span class="input-group-text" id="username"><i class="bi bi-person-fill"></i></span>
@@ -25,6 +28,7 @@
                    aria-describedby="phone">
         </div>
         <button type="submit" style="width: 100%" class="btn btn-primary">Login</button>
+        <span>dont have account? <a href="/registration">create one</a></span>
     </form>
 </div>
 </body>
